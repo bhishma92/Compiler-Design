@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1348.17">
+  <style type="text/css">
+    p.p5 {margin: 0.0px 0.0px 16.0px 0.0px; font: 16.0px Times; -webkit-text-stroke: #000000; min-height: 19.0px}
+    li.li1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Times}
+    li.li2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times}
+    li.li3 {margin: 0.0px 0.0px 16.0px 0.0px; font: 16.0px Times; -webkit-text-stroke: #000000}
+    li.li4 {margin: 0.0px 0.0px 16.0px 0.0px; font: 24.0px Times; -webkit-text-stroke: #000000}
+    span.s1 {-webkit-text-stroke: 0px #000000}
+    span.s2 {font-kerning: none}
+    ol.ol1 {list-style-type: lower-latin}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<ul class="ul1">
+  <li class="li1"><b>Instructions:</b></li>
+  <li class="li2"></li>
+  <li class="li3"><span class="s1"></span><span class="s2">Your program must read 8-bit ASCII strings from standard input -- for instance, using the cin object in C++, or stdin in C. You must consume all input from standard input. <br>
+</span></li>
+  <li class="li3"><span class="s2">Your must tokenize the entire input stream, using the lexical specification below to dictate how to break the stream into tokens.<span class="Apple-converted-space"> </span></span></li>
+  <li class="li3"><span class="s1"></span><span class="s2">You must then output tokens to standard output (e.g., via cout in C++ or stdout in C), using the token information chart below to dictate what information you print about each token. Note that the lexical pattern, when italicized, refers to the pattern from the lexical specification above.<span class="Apple-converted-space"> </span></span></li>
+  <li class="li4"><span class="s1"><b></b></span><span class="s2"><b>Output Requirements:</b></span></li>
+  <li class="li3"><span class="s1"></span><span class="s2">If the input contains unterminated strings, then instead of generating a string token, generate a single ERR2 token. The position indicator for the token should correspond to the beginning quote starting the string. Consume all input up to (but not including) the first newline. If there is no next newline, consume all remaining input. The length associated with the token should be reported appropriately. <br>
+</span></li>
+  <li class="li3"><span class="s2">The alphabet for this assignment consists of the following:<span class="Apple-converted-space"> </span></span></li>
+  <ol class="ol1">
+    <li class="li3"><span class="s2">ASCII 0x09 and 0x0a (tab and newline) <br>
+</span></li>
+    <li class="li3"><span class="s2">ASCII 0x20 through 0x7e (all printable ASCII characters). <br>
+</span></li>
+  </ol>
+  <li class="li3"><span class="s2">If you are in the middle of processing a string (meaning, you have seen the opening quote but not the end quote), and you then see a character that is not part of the alphabet, treat the bad character as if it were a newline for the sake of processing the string. That is, generate an ERR2 token for an unterminated string, and have the token end right before the bad character (meaning tokenization should resume at the bad character). <br>
+</span></li>
+  <li class="li3"><span class="s2">When you see one or more consecutive characters that are not in the alphabet, group them together and generate an ERR3 token. The length associated with the token should be the number of consecutive characters that are not in our alphabet. Resume tokenizing as normal after the bad characters. <br>
+</span></li>
+  <li class="li3"><span class="s2">If you see a character in the alphabet that is not valid in its context, generate an ERR4 token for just the one character. If there are multiple such characters consecutively, generate multiple tokens. <br>
+</span></li>
+  <li class="li3"><span class="s2">When outputting a token, your output must consist of the following, in order:<span class="Apple-converted-space"> </span></span></li>
+  <ol class="ol1">
+    <li class="li3"><span class="s2">“TID:”, with no spaces (or other characters) proceeding. All letters <br>
+shall be output as capital ASCII letters. <br>
+</span></li>
+    <li class="li3"><span class="s2">The colon may optionally be followed by spaces. <br>
+</span></li>
+    <li class="li3"><span class="s2">The Token ID of the token you are outputting. Token IDs must start at <br>
+1 and increase by 1 for each token of the input. <br>
+</span></li>
+    <li class="li3"><span class="s2">A single comma (note the token ID shall NOT be followed by spaces) <br>
+</span></li>
+    <li class="li3"><span class="s2">The comma may optionally be followed by spaces <br>
+</span></li>
+    <li class="li3"><span class="s2">“TYPE:”. All letters shall be output as capital ASCII letters. <br>
+</span></li>
+    <li class="li3"><span class="s2">The colon may optionally be followed by spaces. <br>
+</span></li>
+    <li class="li3"><span class="s2">An integer representing the <i>Numeric Type </i>of the token. <br>
+</span></li>
+    <li class="li3"><span class="s2">The integer must only be followed by a left parenthesis— “(“, meaning <br>
+no spaces before the “(“. <br>
+</span></li>
+    <li class="li3"><span class="s2">The left parenthesis must be followed by the “English Type” of the <br>
+token (as indicated in the table above – case sensitive!), with no <br>
+spaces preceding. <br>
+</span></li>
+    <li class="li3"><span class="s2">The English Type must be followed by a right parenthesis and <br>
+comma— “),”, meaning no spaces before the “),” <br>
+</span></li>
+    <li class="li3"><span class="s2">The comma may optionally be followed by spaces. <br>
+</span></li>
+    <li class="li3"><span class="s2">“POS:”. All letters shall be output as capital ASCII letters. <br>
+</span></li>
+    <li class="li3"><span class="s2">The colon may be optionally followed by spaces. <br>
+</span></li>
+  </ol>
+  <li class="li3"><span class="s1"></span><span class="s2">An integer representing the position of the first character in the original input that led to the token match. The position is numbered from 0, and represents the number of 8-bit ASCII characters in the input stream that precede the character in question. <br>
+</span></li>
+  <li class="li3"><span class="s2">The integer must be followed by a single comma, with NO spaces (or other characters) in between. <br>
+</span></li>
+  <li class="li3"><span class="s2">The comma may optionally be followed by spaces. <br>
+</span></li>
+  <li class="li3"><span class="s2">“LEN:”. All letters shall be output as capital ASCII letters. <br>
+</span></li>
+  <li class="li3"><span class="s2">An integer representing the number of bytes matched in the current <br>
+token. <br>
+</span></li>
+  <li class="li3"><span class="s2">If the chart above indicates “None” in the “Value to output” column, <br>
+then print a single newline (ASCII 0x0a – ‘\n’). The newline may optionally be preceded by spaces. IF THERE IS NO VALUE TO OUTPUT, YOU ARE DONE PRINTING THIS TOKEN. <br>
+</span></li>
+  <li class="li3"><span class="s2">The rest of the bullets are for when you are outputting a value only. <br>
+</span></li>
+  <li class="li3"><span class="s2">Output a comma (with NO preceding spaces), optionally followed by <br>
+spaces, followed by “VALUE:”, optionally followed by spaces. <br>
+</span></li>
+  <li class="li3"><span class="s2">Output the value, per the “Value to output” column above. All items <br>
+that have a value should be a simple copy of the input, except for <br>
+strings, which should omit the quotation marks around the string. <br>
+</span></li>
+  <li class="li3"><span class="s2">Print a single newline (ASCII 0x0a – ‘\n’). The newline may optionally <br>
+be preceded by spaces. <br>
+</span></li>
+  <li class="li3"><span class="s2">Your program must take an optional command-line argument that dictates <br>
+which tokens get output.<br>
+a. If no command line argument is given, then you must output all <br>
+tokens in the token stream.<br>
+b. If the command line argument is a 0, you must also output all tokens <br>
+in the token stream.<br>
+c. If the command line argument is a 1, you must output all tokens <br>
+EXCEPT comments, whitespace, errors and newlines.<br>
+d. If the command line argument is a 2, you must output ONLY tokens for <br>
+comments, whitespace, errors and newlines.<br>
+e. If the command line consists of anything else other than the above <br>
+four options, then you should IGNORE all input from stdin, assume the input length is 0, and populate the token stream with only a single token of type ERR1, which you will then output, per below. <br>
+</span></li>
+  <li class="li3"><span class="s2">After reading in the entire input and generating tokens, output all tokens per the above specification. When you are done outputting all tokens you are supposed to output, then output the following:<span class="Apple-converted-space"> </span></span></li>
+  <ol class="ol1">
+    <li class="li3"><span class="s2">An additional newline (creating a blank line) <br>
+</span></li>
+    <li class="li3"><span class="s2">The string “Totals:” (case sensitive, as with all strings in this <br>
+assignment) <br>
+</span></li>
+    <li class="li3"><span class="s2">Optional space(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">The string “len” <br>
+</span></li>
+    <li class="li3"><span class="s2">Optional space(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">An equals sign<span class="Apple-converted-space"> </span></span></li>
+    <li class="li3"><span class="s1"></span><span class="s2">Optional space(s)<span class="Apple-converted-space"> </span></span></li>
+    <li class="li3"><span class="s1"></span><span class="s2">An integer indicating the length of the input stream (always 0 with <br>
+ERR1, remember!) <br>
+</span></li>
+    <li class="li3"><span class="s2">A comma <br>
+</span></li>
+    <li class="li3"><span class="s2">Optional space(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">The string “tokens” <br>
+</span></li>
+    <li class="li3"><span class="s2">Optional space(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">An equals sign <br>
+</span></li>
+    <li class="li3"><span class="s2">Optional space(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">An integer indicating the number of tokens in the token stream. <br>
+</span></li>
+    <li class="li3"><span class="s2">A comma <br>
+</span></li>
+    <li class="li3"><span class="s2">Optional space(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">The string “printed” <br>
+</span></li>
+    <li class="li3"><span class="s2">Optional space(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">An equals sign <br>
+</span></li>
+    <li class="li3"><span class="s2">Optional space(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">An integer indicating the number of tokens you OUTPUT <br>
+</span></li>
+    <li class="li3"><span class="s2">Optionalspace(s) <br>
+</span></li>
+    <li class="li3"><span class="s2">A single newline. <br>
+</span></li>
+    <li class="li3"><span class="s2">After you finish outputting, your program must exit.<span class="Apple-converted-space"> </span></span></li>
+  </ol>
+</ul>
+<p class="p5"><span class="s2"></span><br></p>
+<p class="p5"><span class="s2"></span><br></p>
+</body>
+</html>
