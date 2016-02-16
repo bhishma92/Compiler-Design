@@ -35,25 +35,7 @@ class tools{
 		}
 		return false;
 	}
-	/*
-	bool isInAlphabet(int dr){
-		if( (dr == 9) ^ (dr==10) ^ (dr >= 32 & dr <= 126) ){
-			return true;
-		}
-		return false;
-	}
 
-	void isBadChar(int &er){
-		LEN=0;
-		spec= er;
-		while(!isInAlphabet(er)){
-			er++;
-			LEN++;	
-		}
-		argValue[token]=1;
-		addToken(tokens, token, "99", "ERR3", spec, LEN, "") ;
-		er--;
-	} */
 
 };
 
