@@ -299,8 +299,9 @@ class Lexical : public tools
 				
 				/* newline lexical */
 				else if(int(input.at(i)) == 10){
-					addToken(tokens, token, "6", "NEWLINE", i,1, "" );
 					argValue[token]=1;
+					addToken(tokens, token, "6", "NEWLINE", i,1, "" );
+					i++;
 					
 				}
 
@@ -471,18 +472,14 @@ class Lexical : public tools
 
 	Lexical(){}
 		
-/*
-         protected:
-                string input;
-                string tokens[100][0];
-                int arg;
-*/		
+	
 };
 
 
 int main(int argc, char *argv[]){
 	
 	Lexical lex; string s; int i;
+	string input[100]; int ln=0; string z;
 
 	if(*argv[1] == '0'){
 		i=0;
@@ -497,15 +494,39 @@ int main(int argc, char *argv[]){
 		i=3;
 	}
 	
-	//cout << " Enter the String you want to do analysis upon ";
-	getline (cin,s);
-	lex.setString(s);
+        while (1){
+
+                if(getline( cin, s ) && !s.empty()){
+                        input[ln]= s;
+                        ln++;
+                }
+
+                else if(s.empty()){
+                        break;
+                }
+        }
 
 
-					
+	
+	for(int vr=0; vr<ln;vr++){
+	
+		z= z + input[vr] + "\n";
+		
+	}
+
+	z=z + input[ln];
+
+	lex.setString(z);
 	lex.setArg(i);
 	lex.analysis();
 	lex.printTokens();
+	
+
+
+					
+	
+	
+	
 	
 	
 
