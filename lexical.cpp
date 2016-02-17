@@ -1,5 +1,5 @@
-/* Lexical Analyzer by Yashi Amola ya639, 
-   Please take the commandline arguments starting from 0 */
+/* Lexical Analyzer */ 
+/*   Please take the commandline arguments starting from 0 */
 
 #include <iostream>
 #include <string>
