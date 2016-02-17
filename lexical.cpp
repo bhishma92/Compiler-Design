@@ -405,6 +405,7 @@ class Lexical : public tools
 		}
 		
 		void addTotal(){
+				length++;
                 stringstream a1,a2;
                 string length1,token1;
                 a1<<length; a1>>length1;
