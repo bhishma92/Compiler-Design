@@ -481,19 +481,31 @@ int main(int argc, char *argv[]){
 	Lexical lex; string s; int i;
 	string input[100]; int ln=0; string z;
 
-	if(*argv[1] == '0'){
+while(1){
+
+	if(argc==1){
 		i=0;
+		break;
+	}
+
+	else if(*argv[1] == '0'){
+		i=0;
+		break;
 	}
 	else if (*argv[1] == '1'){
 		i=1;
+		break;
 	}
 	else if (*argv[1] == '2'){
 		i=2;
+		break;
 	}
-	else {
+	else{
 		i=3;
+		break;
 	}
 	
+}
         while (1){
 
                 if(getline( cin, s ) && !s.empty()){
