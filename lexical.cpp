@@ -59,9 +59,10 @@ class Lexical : public tools
 		
 		void addToken(string tokens[100], int t, string type, string typeName, int pos, int len, string val ){
 
+						int x= t+1;
                         stringstream ss,ss1,ss2;
                         string strNum,strNumP,strNumLen;
-                        ss<<t; ss>>strNum;
+                        ss<<x; ss>>strNum;
                         ss1<<pos; ss1>>strNumP;
                         ss2<<len; ss2>>strNumLen;
 
