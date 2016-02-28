@@ -4,13 +4,14 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cmath>
 using namespace std;
 
 class tools{
 	public:
 		
 	bool checkLetter(char ar){
-		if( (65<= int(ar) & int(ar) <= 90 ) ^ (97<= int(ar) & int(ar) <= 122 ) ){
+		if( (65<= int(ar) & int(ar) <= 90 ) || (97<= int(ar) & int(ar) <= 122 ) ){
 			return true;	
 		}											
 		
@@ -30,7 +31,7 @@ class tools{
 
 	bool checkSpecialChar(char cr){
 		int temp= int(cr);
-		if( (temp == 33) ^ (temp > 35 & temp<=47) ^ (temp>=58 & temp<=64) ^ (123<=temp & temp<=126) ){
+		if( (temp == 33) || (temp > 35 & temp<=47) || (temp>=58 & temp<=64) || (123<=temp & temp<=126) ){
 			return true;
 		}
 		return false;
@@ -65,11 +66,31 @@ class Lexical : public tools
                         ss<<x; ss>>strNum;
                         ss1<<pos; ss1>>strNumP;
                         ss2<<len; ss2>>strNumLen;
+                        int xx=0; int tp=0;
+                        while(xx != type.size()){
 
-			tokens[t] = "TID: " + strNum + ", " + "TYPE: " + type + "(" + typeName + ")" + ", " + "POS: " + strNumP + ", " + "LEN: " + strNumLen + ", " + "VALUE: " + val;	
-			LEN=0;					
-                        token++;
+                        		
+                        		tp += ( int( type.at(xx) - '0' ) * pow( 10, (type.size() -xx -1)) ) ;
+                        		xx++;
+
                         
+                        }
+                        
+                        
+
+        		if((tp>=1 & tp<=4) || (tp >=7 & tp<=11)){
+
+        			
+             		tokens[t] = "TID: " + strNum + ", " + "TYPE: " + type + "(" + typeName + ")" + ", " + "POS: " + strNumP + ", " + "LEN: " + strNumLen + ", " + "VALUE: " + val;	
+					LEN=0;
+					token++;
+			    }
+			    else{
+			    	tokens[t] = "TID: " + strNum + ", " + "TYPE: " + type + "(" + typeName + ")" + ", " + "POS: " + strNumP + ", " + "LEN: " + strNumLen ;	
+					LEN=0;
+					token++;
+			    }					
+                               
 		 
 			//tokens[t] = "TID: " + to_string(t);
 			//cout << tokens[t] << endl;
@@ -77,7 +98,7 @@ class Lexical : public tools
 		
 	
 		bool isInAlphabet(int dr){
-                	if( (dr == 9) ^ (dr==10) ^ (dr >= 32 & dr <= 126) ){
+                	if( (dr == 9) || (dr==10) || (dr >= 32 & dr <= 126) ){
                         	return true;
                 	}
                 	return false;
@@ -116,20 +137,18 @@ class Lexical : public tools
                                                                 
                 	LEN=0;						
                        	spec=a-1;
-                                                                //cout<<checkSpecialChar(input.at(i)) <<endl;
-                        while( checkSpecialChar(input.at(a)) ){
-				cout<<checkSpecialChar(input.at(a))<<endl;
-                        	LEN++;
+            while( checkSpecialChar(input.at(a)) ){
+				
+                LEN++;
 				a++;
-				cout<< a<<"in bad char"<< endl;                                                                                              
-                        }
-			//cout<<"out of loop now"<<endl;
-			argValue[token]=1;
-                        addToken(tokens, token, "99", "ERR3", spec, LEN, "") ;
-			//cout<< a <<endl;
+				                                                                                              
+            }
 			
+			argValue[token]=1;
+            addToken(tokens, token, "99", "ERR3", spec, LEN, "") ;
+				
                      	  
-                }
+        }
 								
 		void analysis(){
 			
@@ -146,30 +165,31 @@ class Lexical : public tools
 
 		                /* check for the identifier, for while if else */
 
-                		if( checkLetter(input.at(i)) ){
+                		if( checkLetter(input.at(i)) || input.at(i) == '_'){
                         		
 					//cout<<"you are in identifier lexical" <<endl;	
 				
-					int init= i;
+								int init= i;
+                        		
                         		while(i<=length){
                                 		
                       
-						LEN++;
+									LEN++;
 						
                         			if(input.substr(init, LEN)== "for"){
                                 			addToken(tokens, token, "8", "FOR", i-2, 3, "");
-							i++;
-							break;
+											i++;
+											break;
                         			}
 
                         			else if(input.substr(init, LEN)== "while"){
                                 			addToken(tokens, token, "9", "WHILE", i-4, 5, input.substr(init,LEN) );
-							i++;
-							//cout<<i<<endl;
-							break;
+											i++;
+											//cout<<i<<endl;
+											break;
                         			}											
 				
-                        			  else if(input.substr(init, LEN)== "if"){
+                        			else if(input.substr(init, LEN)== "if"){
                                                         addToken(tokens, token, "10", "IF", i-1, 2, input.substr(init,LEN) );
                                                         i++;
                                                         break;
@@ -177,8 +197,8 @@ class Lexical : public tools
 
                         			else if(input.substr(init, LEN)== "else"){
                                 			addToken(tokens, token, "11", "ELSE", i-3, 4, input.substr(init,LEN) );
-							i++;
-							break;
+											i++;
+											break;
                         			}
 																		
 					/*	else if(checkSpecialChar(input.at(i))){
@@ -190,19 +210,21 @@ class Lexical : public tools
 							break;	
 						}*/
 						
-						else if(!checkLetter(input.at(i))){
-						//	cout<< i <<endl;
-							addToken(tokens, token, "1", "IDENTIFIER", init,LEN, input.substr(init,LEN-1) );
-							break;
+									else if((!checkLetter(input.at(i))) & (input.at(i) != '_') & (!checkInt(input.at(i))) ){
+										//	cout<< i <<endl;
+										addToken(tokens, token, "1", "ID", init,LEN-1, input.substr(init,LEN-1) );
+										break;
 				
-						}
+									}
+									
 												
                         			else if(i ==length){
 							
-                                			addToken(tokens, token, "1", "IDENTIFIER", init,LEN, input.substr(init,LEN) );
-							i++;
-						}
-						i++;
+                                		addToken(tokens, token, "1", "ID", init,LEN-1, input.substr(init,LEN) );
+										i++;
+									}
+									
+									i++;
 						
                 			}
 				}
@@ -270,27 +292,27 @@ class Lexical : public tools
 						while(i<=length){
 							i++;
 							if( int(input.at(i))==34  ){
-								addToken(tokens, token, "2", "STR", quoteLoc+1, LEN, input.substr(quoteLoc+1,LEN) );
+								addToken(tokens, token, "2", "STR", quoteLoc, LEN+2, input.substr(quoteLoc+1,LEN) );
 								i++;
 								break;
 							}
 						
 							else if(!(isInAlphabet( int(input.at(i)) )) ){
 								argValue[token]=1;
-								addToken(tokens, token, "98", "ERR2", quoteLoc+1, LEN,"");
+								addToken(tokens, token, "98", "ERR2", quoteLoc, LEN+1,"");
 								break;
 							}
 							else if((i==length) & (int(input.at(i)) != 34) ){
 								argValue[token]=1;
-								addToken(tokens, token, "98", "ERR2", quoteLoc+1, LEN, "");
-								i++;
+								addToken(tokens, token, "98", "ERR2", quoteLoc, LEN+1, "");
+								
 								break;
 							}
 							else if (int(input.at(i))==10 ){
 								argValue[token]=1;
-								addToken(tokens, token, "98", "ERR2", quoteLoc+1, LEN, "");
-                                                                i++;
-                                                                break;
+								addToken(tokens, token, "98", "ERR2", quoteLoc, LEN+1, "");
+                                
+                                break;
 							}
 							LEN++;
 						}
@@ -315,7 +337,7 @@ class Lexical : public tools
 				else if(int(input.at(i)) == 32){
 					//cout<<"whitespace!!"<<endl;
 					argValue[token]=1;
-                                        addToken(tokens, token, "5", "WHITESPACE", i, 1, "" );
+                    addToken(tokens, token, "5", "WS", i, 1, "" );
 					
 					i++;        
                                 }
@@ -325,15 +347,14 @@ class Lexical : public tools
 				
 				else if ( input.at(i) == '#'){
 					quoteLoc=i;
-					while(i != length ){
+					i++;
+					while((int(input.at(i)) != 10)) {
 						i++;
 						LEN++;
 					}
 					
 					argValue[token]=1;	
-					addToken(tokens, token, "7", "COMMENT", quoteLoc,LEN, input.substr(quoteLoc+1,length-quoteLoc) );
-					i++;
-					
+					addToken(tokens, token, "7", "COMMENT", quoteLoc,LEN, input.substr(quoteLoc+1,i-quoteLoc-1) );
 					
 				}
 
@@ -449,13 +470,13 @@ class Lexical : public tools
 							}
 
 			else if (arg == 2){
-				 for(int m=0; m<=token;m++){
-                                        if(argValue[m] == 1){ /* only comment newLine whitespace */
-                                                cout<<tokens[m]<<endl;
+				for(int m=0; m<=token;m++){
+                	if(argValue[m] == 1){ /* only comment newLine whitespace */
+                        cout<<tokens[m]<<endl;
 						cnt++;
-                                        }
-                                }
-                      cnt--;
+                    }
+                }
+                	  
                       stringstream c3;
                       string cnt3;
                       c3<<cnt; c3>>cnt3;
@@ -468,7 +489,8 @@ class Lexical : public tools
                                         cout<<tokens[m]<<endl;
                                 }
 
-				cout<< total + "1" <<endl;
+                string err= string("Totals: ") + "len: " + "0" + ", " + "tokens = " + "1" + "," + "printed = "  + "1" ;
+				cout<< err <<endl;
 			}  											      
                 }
 
