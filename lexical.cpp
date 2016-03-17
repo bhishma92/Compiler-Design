@@ -177,7 +177,7 @@ class Lexical : public tools
 									LEN++;
 						
                         			if(input.substr(init, LEN)== "for"){
-                                			addToken(tokens, token, "8", "FOR", i-2, 3, "");
+                                			addToken(tokens, token, "8", "FOR", i-2, 3, input.substr(init,LEN));
 											i++;
 											break;
                         			}
@@ -359,8 +359,27 @@ class Lexical : public tools
 				}
 
 				else if(isInAlphabet(int(input.at(i))) ){
-					if(int(input.at(i)) == 33 ){
-						addToken(tokens, token,"12",  "!", i,1, "" );
+					
+						if(int(input.at(i)) == 33 )
+					{
+						if((i+1) < input.size())
+						{
+							if(input.at(i+1) == '=')
+							{
+								addToken(tokens, token,"31", "!=", i, 1, "" );
+								i++;	
+							}
+							else
+							{
+								addToken(tokens, token,"12",  "!", i, 1, "" );
+							}
+						}
+					}
+					else if( int(input.at(i)) == 40  ){
+						addToken(tokens, token,"33", "(", i, 1, "" );	
+					}
+					else if( int(input.at(i)) ==  41 ){
+						addToken(tokens, token,"34", ")", i, 1, "" );	
 					}
 					else if( int(input.at(i)) == 37  ){
 						addToken(tokens, token,"13", "%", i, 1, "" );	
@@ -387,6 +406,9 @@ class Lexical : public tools
 					else if( int(input.at(i)) == 123  ){
 						addToken(tokens, token,"20",  "{", i, 1, "" );
 					}
+					else if( int(input.at(i)) == 124  ){
+						addToken(tokens, token,"15",  "|", i, 1, "" );
+					}
 					else if( int(input.at(i)) == 125 ){
 						addToken(tokens, token,"21",  "}", i,1, "" );
 					}
@@ -402,13 +424,40 @@ class Lexical : public tools
 					else if(int(input.at(i)) == 44 ){
 						addToken(tokens, token,"25", ",", i,1, "" );
 					}
-					else if ( int(input.at(i)) == 60 ){
-						addToken(tokens, token,"26",  "<", i, 1, "" );
+					else if ( int(input.at(i)) == 60 )
+					{
+						
+						if((i+1) < input.size())
+						{
+							if(input.at(i+1) == '=')
+							{
+								addToken(tokens, token,"29", "<=", i, 1, "" );
+								i++;	
+							}
+							else
+							{
+								addToken(tokens, token,"26",  "<", i, 1, "" );
+							}
+						}
 					}
-					else if(int(input.at(i)) == 62 ){
-						addToken(tokens, token,"27",  ">", i,1, "" );
+					else if(int(input.at(i)) == 62 )
+					{
+						if((i+1) < input.size())
+						{
+							if(input.at(i+1) == '=')
+							{
+								addToken(tokens, token,"30", ">=", i, 1, "" );
+								i++;	
+							}
+							else
+							{
+								addToken(tokens, token,"27",  ">", i, 1, "" );
+							}
+						}	
+
 					}
-					else if(int(input.at(i)) == 61 ){
+					else if(int(input.at(i)) == 61 )
+					{
 						addToken(tokens, token,"28", "=", i, 1, "" );
 					}
 					else if(int(input.at(i)) == 40 ){
@@ -416,7 +465,22 @@ class Lexical : public tools
                                         }
 					else if(int(input.at(i)) == 41 ){
                                                 addToken(tokens, token,"28", ")", i, 1, "" );
-                                        }			
+                                        }
+                    else if(int(input.at(i)) == 58) 
+                    {
+                    	if((i+1) < input.size())
+						{
+							if(input.at(i+1) == '=')
+							{
+								addToken(tokens, token,"32", ":=", i, 1, "" );
+								i++;	
+							}
+							else
+							{
+								addToken(tokens, token,"26",  "<", i, 1, "" );
+							}
+						}
+                    }			
 					else{
 						isBadChar(i);
 					}
@@ -456,11 +520,12 @@ class Lexical : public tools
 			}
 																						
 			else if(arg == 1){
-				for(int m=0; m<=token;m++){
-                                        if(argValue[m] != 1){ /* everything except comment newLine whitespace */
+				for(int m=0; m<=token;m++)
+				{
+                        if(argValue[m] != 1){ /* everything except comment newLine whitespace */
 						cout<<tokens[m]<<endl;
 						cnt++;
-					}
+				}
                                 }
                        cnt--;
                       stringstream c2;
@@ -556,18 +621,6 @@ while(1){
 	lex.setArg(i);
 	lex.analysis();
 	lex.printTokens();
-	
-
-
-					
-	
-	
-	
-	
-	
-
-
-
-	
+		
 return 0;	
 }
