@@ -17,6 +17,7 @@ class node
 		vector<node> childVec;
 		vector<int> index;
 		int endNode=0;
+		int tabs=0;
 
 		vector<node> getVec()
 		{
@@ -148,6 +149,16 @@ class node
 			}
 		}
 
+		void addTabs(int tab)
+		{
+			tabs=tab;
+		}
+
+		int getTabs()
+		{
+			return tabs;
+		}
+
 		node(bool aa, bool bb, int cc, int dd, int ee, string ff, int gg, int hh, string ii)
 		{
 
@@ -234,6 +245,7 @@ class Parser : public tools, public node
 		int head;
 		vector<vector<int> > indexVec;
 		int pError=0; int var3=0;
+
 		
 		void ptrIn()
 		{
@@ -880,7 +892,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 			else
@@ -891,7 +903,7 @@ class Parser : public tools, public node
 
 			i++;
 			ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"and_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=and_expr(&ptr[i],i,tokenVal);
 
 
@@ -899,7 +911,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cond_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=cond_expr1(&ptr[i],i,tokenVal);
 			}
 			else
@@ -932,14 +944,14 @@ class Parser : public tools, public node
 			i++;
 
 			ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"and_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=and_expr(&ptr[i],i,tokenVal);
 
 			if(retVal)
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cond_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=cond_expr1(&ptr[i],i,tokenVal);
 
 			}
@@ -958,7 +970,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 			else
@@ -969,7 +981,7 @@ class Parser : public tools, public node
 
 			i++;
 			ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cmp_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=cmp_expr(&ptr[i],i,tokenVal);
 
 
@@ -977,7 +989,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"and_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=and_expr1(&ptr[i],i,tokenVal);
 			}
 			else
@@ -1010,14 +1022,14 @@ class Parser : public tools, public node
 			i++;
 
 			ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"eq_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=eq_expr(&ptr[i],i,tokenVal);
 
 			if(retVal)
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"and_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=and_expr1(&ptr[i],i,tokenVal);
 
 			}
@@ -1036,7 +1048,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 			else
@@ -1047,7 +1059,7 @@ class Parser : public tools, public node
 
 			i++;
 			ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cmp_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=cmp_expr(&ptr[i],i,tokenVal);
 
 
@@ -1055,7 +1067,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"eq_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=eq_expr1(&ptr[i],i,tokenVal);
 			}
 			else
@@ -1088,14 +1100,14 @@ class Parser : public tools, public node
 			i++;
 			
 			ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cmp_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=cmp_expr(&ptr[i],i,tokenVal);
 
 			if(retVal)
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"eq_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=eq_expr1(&ptr[i],i,tokenVal);
 ;
 			}
@@ -1142,13 +1154,13 @@ class Parser : public tools, public node
 				if(retVal)
 				{
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=expr(&ptr[i],i,tokenVal);
 			}
 			else
@@ -1161,7 +1173,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cmp_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=cmp_expr1(&ptr[i],i,tokenVal);
 
 			}
@@ -1195,14 +1207,14 @@ class Parser : public tools, public node
 			i++;
 
 			ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=expr(&ptr[i],i,tokenVal);
 
 			if(retVal)
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cmp_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=cmp_expr1(&ptr[i],i,tokenVal);
 			}
 
@@ -1215,7 +1227,7 @@ class Parser : public tools, public node
 			i++;
 
 			ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"cond_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=cond_expr(&ptr[i],i,tokenVal);
 
 			if(retVal==0)
@@ -1246,7 +1258,7 @@ class Parser : public tools, public node
 			i++;
 
 			ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"assign_stmt");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 			retVal=assign_stmt(&ptr[i],i,tokenVal);
 
 			if(retVal==0)
@@ -1280,7 +1292,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1296,7 +1308,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1311,7 +1323,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"stmt");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=stmt(&ptr[i],i,tokenVal);
 			}
 
@@ -1323,7 +1335,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 			}
@@ -1347,7 +1359,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1357,7 +1369,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1367,7 +1379,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cond_expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=cond_expr(&ptr[i],i,tokenVal);
 			}
 
@@ -1378,7 +1390,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 			}
@@ -1391,7 +1403,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 			}
@@ -1400,7 +1412,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"stmt");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=stmt(&ptr[i],i,tokenVal);
 			}
 
@@ -1411,7 +1423,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 			}
@@ -1430,7 +1442,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1440,7 +1452,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1449,7 +1461,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"opt_assign");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=opt_assign(&ptr[i],i,tokenVal);
 			}
 
@@ -1460,7 +1472,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 
@@ -1470,7 +1482,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"opt_cond_expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=opt_cond_expr(&ptr[i],i,tokenVal);
 			}
 
@@ -1481,7 +1493,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 
@@ -1491,7 +1503,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"opt_assign");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=opt_assign(&ptr[i],i,tokenVal);
 			}
 
@@ -1502,7 +1514,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 
@@ -1515,7 +1527,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 
@@ -1525,7 +1537,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"stmt");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=stmt(&ptr[i],i,tokenVal);
 			}
 
@@ -1536,7 +1548,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;					
 				}
 
@@ -1555,7 +1567,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1565,7 +1577,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1573,7 +1585,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"cond_expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=cond_expr(&ptr[i],i,tokenVal);
 			}
 
@@ -1584,7 +1596,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;
 				}
 			}
@@ -1596,7 +1608,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;
 				}
 			}
@@ -1605,7 +1617,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"stmt");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=stmt(&ptr[i],i,tokenVal);
 			}
 
@@ -1616,7 +1628,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;
 				}
 			}
@@ -1625,7 +1637,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i] = new node(false, true, 0, 0, 0, "",0,0,"opt_else");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=opt_else(&ptr[i],i,tokenVal);
 			}
 
@@ -1643,7 +1655,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 			
@@ -1655,7 +1667,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); // := added	
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1); // := added	
 					tokenVal++;
 				}
 						
@@ -1665,7 +1677,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 
 				retVal=expr(&ptr[i], i,tokenVal);
 			}
@@ -1684,7 +1696,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;					
 			}
 
@@ -1692,7 +1704,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=expr(&ptr[i], i,tokenVal);
 			}
 
@@ -1703,7 +1715,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;				
 				}
 			}
@@ -1715,7 +1727,7 @@ class Parser : public tools, public node
 				{
 					i++;
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;				
 				}
 
@@ -1762,7 +1774,7 @@ class Parser : public tools, public node
 			if(retVal)
 				{
 					ptr[i]= tokens1[tokenVal];
-					(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+					(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 					tokenVal++;
 				}
 				
@@ -1778,7 +1790,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;
 			}
 
@@ -1786,7 +1798,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"basic_expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 
 				retVal=basic_expr(&ptr[i], i,tokenVal);
 
@@ -1797,7 +1809,7 @@ class Parser : public tools, public node
 					{
 						i++;
 						ptr[i]=tokens1[tokenVal];
-						(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+						(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 						tokenVal++;						
 					}
 
@@ -1808,7 +1820,7 @@ class Parser : public tools, public node
 			else
 			{
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"basic_expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);				
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);				
 				retVal=basic_expr(&ptr[i], i,tokenVal);
 				return retVal;
 			}
@@ -1843,12 +1855,12 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);				
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);				
 				tokenVal++;
 
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal= expr(&ptr[i],i,tokenVal);
 
 				return retVal;				
@@ -1856,7 +1868,7 @@ class Parser : public tools, public node
 			else
 			{
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"paren_expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 
 				retVal=paren_expr(&ptr[i], i,tokenVal);
 
@@ -1872,7 +1884,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;
 			}
 			else
@@ -1885,7 +1897,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"unary_expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 
 				retVal=unary_expr(&ptr[i], i,tokenVal); // * found so go ahead;
 				  
@@ -1900,7 +1912,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"mult_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);				
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);				
 
 				retVal=mult_expr1(&ptr[i], i,tokenVal);				
 			}
@@ -1925,7 +1937,7 @@ class Parser : public tools, public node
 			i++;
 
 			ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"unary_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 
 			retVal=unary_expr(&ptr[i] , i,tokenVal);
 
@@ -1939,7 +1951,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"mult_expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);				
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);				
 				retVal= mult_expr1(&ptr[i], i,tokenVal);
 			}
 
@@ -1961,7 +1973,7 @@ class Parser : public tools, public node
 			if(retVal)
 			{
 				ptr[i]= tokens1[tokenVal];
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				tokenVal++;
 			}
 
@@ -1975,7 +1987,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"mult_expr");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 
 				retVal=mult_expr(&ptr[i], i,tokenVal); // + found so go ahead;
 				  
@@ -1990,7 +2002,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);				
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);				
 
 				retVal=expr1(&ptr[i], i,tokenVal);				
 			}
@@ -2015,7 +2027,7 @@ class Parser : public tools, public node
 			i++;
 			
 			ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"mult_expr");
-			(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+			(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 
 			retVal=mult_expr(&ptr[i],i,tokenVal);	
 		
@@ -2031,7 +2043,7 @@ class Parser : public tools, public node
 			{
 				i++;
 				ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"expr1");
-				(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+				(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 				retVal=expr1(&ptr[i], i,tokenVal);
 			}
 			if(retVal==0)
@@ -2094,7 +2106,7 @@ class Parser : public tools, public node
 						}
 
 						ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"while_stmt");
-						(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+						(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 
 						retVal= while_stmt(&ptr[i], i,tokenVal);
 
@@ -2107,7 +2119,7 @@ class Parser : public tools, public node
 						{	
 							i++;
 							ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"stmt");
-							(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+							(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 							retVal=stmt(&ptr[i],i,tokenVal);	
 						}
 
@@ -2123,7 +2135,7 @@ class Parser : public tools, public node
 							i++;
 						}
 						ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"for_stmt");
-						(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+						(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 						retVal=for_stmt(&ptr[i],i,tokenVal);	
 
 						if(retVal==0)
@@ -2135,7 +2147,7 @@ class Parser : public tools, public node
 						{
 							i++;
 							ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"stmt");
-							(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+							(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 							retVal=stmt(&ptr[i],i,tokenVal);	
 						}
 
@@ -2158,7 +2170,7 @@ class Parser : public tools, public node
 							i++;
 						}
 						ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"if_stmt");
-						(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+						(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 						retVal=if_stmt(&ptr[i],i,tokenVal);	
 
 						if(retVal==0)
@@ -2170,7 +2182,7 @@ class Parser : public tools, public node
 						{
 							i++;
 							ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"stmt");
-							(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+							(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 							retVal=stmt(&ptr[i],i,tokenVal);	
 						}
 
@@ -2195,7 +2207,7 @@ class Parser : public tools, public node
 						}
 
 						ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"assign_stmt");
-						(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+						(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 
 						retVal=assign_stmt(&ptr[i],i,tokenVal);	
 	
@@ -2212,7 +2224,7 @@ class Parser : public tools, public node
 							{	
 								i++;
 								ptr[i]= tokens1[tokenVal];
-								(*root)->addChild(&ptr[i]); (*root)->addIndex(i);
+								(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);
 								tokenVal++;
 								
 							}
@@ -2228,7 +2240,7 @@ class Parser : public tools, public node
 						{
 							i++;
 							ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"stmt");
-							(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+							(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 							retVal=stmt(&ptr[i],i,tokenVal);
 
 						}
@@ -2255,7 +2267,7 @@ class Parser : public tools, public node
 							i++;
 						}
 						ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"output_stmt");
-						(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+						(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 						retVal=output_stmt(&ptr[i],i,tokenVal);	
 
 						if(retVal==0)
@@ -2267,7 +2279,7 @@ class Parser : public tools, public node
 						{
 							i++;
 							ptr[i]= new node(false, true, 0, 0, 0, "",0,0,"stmt");
-							(*root)->addChild(&ptr[i]); (*root)->addIndex(i);	
+							(*root)->addChild(&ptr[i]); (*root)->addIndex(i); (*ptr[i]).addTabs((*root)->getTabs()+1);	
 							retVal=stmt(&ptr[i],i,tokenVal);	
 						}	
 
@@ -2389,6 +2401,13 @@ class Parser : public tools, public node
 
 					while(var != retVal+1)
 					{
+						for(int h=0;h<(*ptr[var]).getTabs();h++)
+						{
+							cout<<" ";
+						}
+
+
+
 						if((*ptr[var]).getTerm()==false)
 						{
 							cout<<"<node>"<<"<nt>"<<(*ptr[var]).getVal()<<"</nt>"<<"<children>"<<endl;
@@ -2399,24 +2418,52 @@ class Parser : public tools, public node
 							if((*ptr[var]).noVal)
 							{
 								cout<<"<node>"<<"<id>"<<(*ptr[var]).getID()<<"</id>"<<"<typenum>"<<(*ptr[var]).getType()<<"</typenum>"<<"<typename>"<<(*ptr[var]).getName()<<"</typename>"<<endl;
+								
+								for(int h=0;h<(*ptr[var]).getTabs()+1;h++)
+								{
+									cout<<" ";
+								}
+
 								cout<<"<position>"<<(*ptr[var]).getPos()<<"</position>"<<"<length>"<<(*ptr[var]).getLen()<<"</length>"<<endl;
+								
+								for(int h=0;h<(*ptr[var]).getTabs();h++)
+								{
+									cout<<" ";
+								}
+
 								cout<<"</node>"<<endl;
 							}
 							else
 							{
 								cout<<"<node>"<<"<id>"<<(*ptr[var]).getID()<<"</id>"<<"<typenum>"<<(*ptr[var]).getType()<<"</typenum>"<<"<typename>"<<(*ptr[var]).getName()<<"</typename>"<<endl;
+
+								for(int h=0;h<(*ptr[var]).getTabs()+1;h++)
+								{
+									cout<<" ";
+								}
+
 								cout<<"<position>"<<(*ptr[var]).getPos()<<"</position>"<<"<length>"<<(*ptr[var]).getLen()<<"</length>"<<"<value>"<<(*ptr[var]).getVal()<<"</value>"<<endl;
+
+								for(int h=0;h<(*ptr[var]).getTabs();h++)
+								{
+									cout<<" ";
+								}
+
 								cout<<"</node>"<<endl;
 							}
 
 						}
 
-						for(int h=0; h<=retVal;h++)
+						for(int h=retVal; h>=0;h--)
 						{
 							if((*ptr[h]).endNode == var)
 							{
 								if((*ptr[h]).getTerm()==false)
 								{
+									for(int j=0;j<(*ptr[h]).getTabs();j++)
+									{
+										cout<<" ";
+									}
 									cout<<"</node></children>"<<endl;
 								}	
 							}
