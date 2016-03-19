@@ -8,12 +8,12 @@ This application runs an analysis on user given input and determines the output 
 
 The analyis is done on ASCII characters.
 
-The code is written in C++.
 
 Syntax-Analysis
 
-This application takes tokens created in previos step as an input and creates a top-down parser using grammer mentioned in the parser instructions.
+This application takes tokens created in previos step as an input and creates a Top-Down Parser using grammer mentioned in the parser instructions. 
+Top-Down Parser is based upon recursive decent(top to bottom, left to right).
 
-It creates the output in XML format for non-terminal and terminal nodes of parse tree.   
+It prints the parse tree in XML format as output for non-terminal and terminal nodes of parse tree.   
 
-The code is written in C++.
+The application is written in C++.
