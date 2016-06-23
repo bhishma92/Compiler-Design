@@ -1,5 +1,8 @@
 /* Parser1 */ 
 
+
+/* ------Parser also includes tokenizer as professor wanted us to submit just one file with entire source code--------- */
+
 #include <iostream>
 #include <string>
 #include <sstream>
