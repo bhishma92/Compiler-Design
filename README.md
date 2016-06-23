@@ -2,6 +2,8 @@
 
 Two parts of Compiler design have been implemented so far, Lexical Analyis and Syntax Analysis. 
 
+Note: The parser also includes source code of tokenizer as the professor required us to submit the entire assignment as one file.
+
 Lexical-Analysis
 
 This application runs an analysis on user given input and determines the output based on the functional requirements, which are mentioned in the requirements file. 
